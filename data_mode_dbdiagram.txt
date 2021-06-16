@@ -1,0 +1,78 @@
+table cities {
+  id int [PK] 
+  name varchar
+  department varchar
+}
+
+table suppliers{
+  id int [PK]
+  supplier_id varchar [unique]
+  contact_name varchar
+  company_name varchar
+  address varchar
+  city_id int [ref: > cities.id]
+  phone_number varchar
+  created timestamp [default: `now()`]
+}
+
+table products{
+  id int [PK]
+  product_id varchar [unique]
+  name varchar
+  description varchar
+  image varchar
+  quantity int
+  price float8
+  unit_measure varchar
+  created timestamp [default: `now()`]
+  updated timestamp [null]
+}
+
+table products_supplier {
+  id int [PK]
+  product_id int [ref: > products.id]
+  supplier_id int [ref: > suppliers.id]
+}
+
+table users {
+  id int [PK]
+  id_user varchar [unique]
+  first_name varchar
+  last_name varchar
+  phone_number varchar
+  email varchar
+  password varchar
+  profile_id int [ref: - profiles.id, null]
+  created timestamp [default: `now()`]
+  updated timestamp [null]
+}
+
+table profiles {
+  id int [PK]
+  image varchar
+  bio text
+  role_id int [ref: > roles.id]
+  created timestamp [default: `now()`]
+  updated timestamp [null]
+}
+
+table roles {
+  id int [PK]
+  name varchar
+  description text
+}
+
+table orders {
+  id int [PK]
+  user_id int [ref: > users.id]
+  done boolean [default:false]
+  created timestamp [default: `now()`]
+  updated timestamp [null]
+}
+
+table orders_items{
+  id int [PK]
+  order_id int [ref: > orders.id]
+  product_id int [ref: > products.id]
+  quantity int
+}
