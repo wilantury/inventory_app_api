@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'supplyers',
     'djoser',
     # third party
+    'rest_framework.authtoken',
     'rest_framework',
 ]
 
